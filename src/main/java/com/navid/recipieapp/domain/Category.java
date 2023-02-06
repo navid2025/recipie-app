@@ -8,9 +8,10 @@ import java.util.Set;
  * @author n.zare 2/5/2023 $
  */
 @Entity
+@Table(name = "CATEGORY")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String categoryName;

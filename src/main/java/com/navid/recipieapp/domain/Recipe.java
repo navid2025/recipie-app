@@ -38,6 +38,7 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe")
     private Set<Ingredient> ingredients;
 
+
     public Long getId() {
         return id;
     }
