@@ -15,13 +15,13 @@ import java.util.Optional;
 @Controller
 public class IndexController {
     CategoryRepository categoryRepository;
-    UnitOFMEasurmentsRepository uiUnitOfMeasureRepository;
+    UnitOfMeasuresRepository unitOfMeasureRepository;
     private final UnitOfMeasuresRepository unitOfMeasuresRepository;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOFMEasurmentsRepository uiUnitOfMeasureRepository,
+    public IndexController(CategoryRepository categoryRepository, UnitOfMeasuresRepository unitOfMeasureRepository,
                            UnitOfMeasuresRepository unitOfMeasuresRepository) {
         this.categoryRepository = categoryRepository;
-        this.uiUnitOfMeasureRepository = uiUnitOfMeasureRepository;
+        this.unitOfMeasureRepository = unitOfMeasureRepository;
         this.unitOfMeasuresRepository = unitOfMeasuresRepository;
     }
 
