@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UnitOfMeasuresRepository extends JpaRepository<UnitOfMeasures, Long> {
     Optional<UnitOfMeasures> findByUom(String uom);
+
 }
