@@ -25,12 +25,12 @@ public class IndexController {
         this.unitOfMeasuresRepository = unitOfMeasuresRepository;
     }
 
-    @RequestMapping({"", "/", "/index"})
-    public String index(){
-        Optional<Category> queryCategory= categoryRepository.findByCategoryName("french");
-        System.out.println("************" + queryCategory.get().getId());
-        Optional<UnitOfMeasures> queryCategory2= unitOfMeasuresRepository.findByUom("Pintch");
-        System.out.println(queryCategory2.get().getId());
-        return "index1";
-    }
+//    @RequestMapping({"", "/", "/index"})
+//    public String index(){
+//        Optional<Category> queryCategory= categoryRepository.findByCategoryName("french");
+//        System.out.println("************" + queryCategory.get().getId());
+//        Optional<UnitOfMeasures> queryCategory2= unitOfMeasuresRepository.findByUom("Pintch");
+//        System.out.println(queryCategory2.get().getId());
+//        return "index1";
+//    }
 }
