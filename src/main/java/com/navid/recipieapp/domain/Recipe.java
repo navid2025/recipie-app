@@ -2,6 +2,7 @@ package com.navid.recipieapp.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Set;
 @Entity
 public class Recipe {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String description;
@@ -19,24 +20,27 @@ public class Recipe {
     private String servings;
     private String source;
     private String url;
+
+    @Lob
     private String directions;
 
     @Lob
     private Byte[] image;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Notes notes;
+    private Note notes;
 
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
-    @ManyToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recepie_id"),
             inverseJoinColumns = @JoinColumn(name="categpry_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
-    @OneToMany(mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    private Set<Ingredient> ingredients = new HashSet<>();
+
 
 
     public Long getId() {
@@ -111,12 +115,13 @@ public class Recipe {
         this.image = image;
     }
 
-    public Notes getNotes() {
+    public Note getNotes() {
         return notes;
     }
 
-    public void setNotes(Notes notes) {
+    public void setNotes(Note notes) {
         this.notes = notes;
+        notes.setRecipe(this);
     }
 
     public Difficulty getDifficulty() {
@@ -127,6 +132,14 @@ public class Recipe {
         this.difficulty = difficulty;
     }
 
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
     public Set<Ingredient> getIngredients() {
         return ingredients;
     }
@@ -134,4 +147,10 @@ public class Recipe {
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
+
+    public void addIngredient(Ingredient ingredient){
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+    }
+
 }

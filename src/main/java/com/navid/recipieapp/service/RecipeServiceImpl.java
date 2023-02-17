@@ -5,6 +5,7 @@ import com.navid.recipieapp.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -25,5 +26,10 @@ public class RecipeServiceImpl implements RecipeService{
   Set<Recipe> recipes = new HashSet<>();
   recipeRepository.findAll().forEach(recipes::add);
   return recipes;
+ }
+
+ public Recipe getRecipeById(long id) {
+
+  return recipeRepository.findById(id).isPresent() ? recipeRepository.findById(id).get():null;
  }
 }

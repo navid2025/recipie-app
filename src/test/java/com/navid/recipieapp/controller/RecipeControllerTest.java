@@ -6,10 +6,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.ui.Model;
 
@@ -21,10 +24,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 /**
  * @author n.zare 2/8/2023 $
  */
-
+@ExtendWith(MockitoExtension.class)
 class RecipeControllerTest {
-
-    RecipeController recipeController;
 
     @Mock
     RecipeService recipeService;
@@ -32,14 +33,14 @@ class RecipeControllerTest {
     @Mock
     Model model;
 
+    @InjectMocks
+    RecipeController recipeController;
+    MockMvc mockMvc;
+
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
         recipeController = new RecipeController(recipeService);
-//        Recipe recipe = new Recipe();
-//        Set<Recipe> recipeSet = new HashSet<>();
-//        recipeSet.add(recipe);
-//        Mockito.when(recipeService).thenReturn(recipeSet);
+        mockMvc = standaloneSetup(recipeController).build();
     }
 
     @Test
@@ -53,9 +54,13 @@ class RecipeControllerTest {
         verify(model, times(1)).addAttribute(eq("recipes"), anySet());
     }
 
-    @org.junit.jupiter.api.Test
-    void TestMvcController() throws Exception{
-        MockMvc mockMvc = standaloneSetup(recipeController).build();
+    @Test
+    void findRecipesTest() throws Exception{
         mockMvc.perform(get("/")).andExpect(status().is(200)).andExpect(view().name("recipe/index"));
+    }
+    @Test
+    void findRecipeById() throws Exception {
+        mockMvc.perform(get("/recipe/find/1")).andExpect(status().isOk()).andExpect(view().name("recipe/show"));
+
     }
 }

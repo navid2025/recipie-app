@@ -6,12 +6,12 @@ import jakarta.persistence.*;
  * @author n.zare 2/5/2023 $
  */
 @Entity
-
-public class Notes {
+public class Note {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Lob
     private String notes;
 
     @OneToOne
@@ -31,5 +31,13 @@ public class Notes {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 }

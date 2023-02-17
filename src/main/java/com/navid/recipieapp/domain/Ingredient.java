@@ -14,11 +14,12 @@ public class Ingredient {
     private String description;
     private Double amount;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private UnitOfMeasures unitOfMeasure;
 
     @ManyToOne
     private Recipe recipe;
+
 
     public Long getId() {
         return Id;
@@ -50,5 +51,13 @@ public class Ingredient {
 
     public void setUnitOfMeasure(UnitOfMeasures unitOfMeasure) {
         this.unitOfMeasure = unitOfMeasure;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 }
